@@ -55,3 +55,13 @@ Before you begin, ensure you have met the following requirements:
 
 The required Python packages are listed in the `requirements.txt` file:
 
+```
+Django>=3.2
+pandas>=1.2.0
+matplotlib>=3.3.0
+```
+
+To install these dependencies, use the following command:
+```bash
+pip install -r requirements.txt
+```
