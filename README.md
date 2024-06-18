@@ -26,7 +26,7 @@ Before you begin, ensure you have met the following requirements:
 
     ```bash
     git clone https://github.com/akarsh-sinha/Conveyor-Profiler.git
-    cd company-dashboard
+    cd company_dashboard
     ```
 
 2. **Install the required dependencies**
