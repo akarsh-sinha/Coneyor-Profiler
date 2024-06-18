@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Conveyor Profiler</title>
+    {% load static %}
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'dashboard/Tata_logo.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/style.css' %}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body class="container">
+    <header class="bg-light py-3">
+        <div class="container d-flex align-items-center justify-content-between">
+            <img src="{% static 'dashboard/tatasteel_logo.png' %}" alt="Tata Logo" class="logo" height="70px"/>
+            <h1 class="mx-auto" style="color: rgb(46, 90, 193);">Conveyor Profiler</h1>
+            <div class="current-time" style="background-color: rgb(46, 90, 193); padding: 10px; border-radius: 5px;">
+                <div id="clock" style="color: white;"></div>
+            </div>
+        </div>
+    </header>
+    <hr>
+    <main class="container mt-4">
+        <div class="row">
+            <aside class="col-md-4">
+                <h2>Upload Data</h2>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </form>
+
+                <h2 class="mt-4">Select Date</h2>
+                <form method="get">
+                    {{ date_form.as_p }}
+                    <button type="submit" class="btn btn-primary">Show Data</button>
+                </form>
+            </aside>
+            <section class="col-md-8">
+                <h2>Profile</h2>
+                {% if graph %}
+                    {% if graph == 'No data available for this date.' or graph == 'Error processing the data files.' %}
+                        <p>{{ graph }}</p>
+                    {% else %}
+                        <img src="{% static graph %}" alt="Graph for selected date" class="img-fluid" />
+                    {% endif %}
+                {% else %}
+                    <p>Please select a date to view data.</p>
+                {% endif %}
+            </section>
+        </div>
+    </main>
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clock').innerHTML = `${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock(); // initial call to display clock immediately
+    </script>
+</body>
+</html>
